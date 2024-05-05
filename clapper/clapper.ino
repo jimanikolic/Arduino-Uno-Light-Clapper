@@ -27,7 +27,7 @@ void loop() {
     // Check if required number of claps are detected and servo is not already triggered
     if (clapCount >= clapCountThreshold && !servoTriggered) {
       Serial.println("Claps detected! Triggering servo motion...");
-      // Toggle servo position between 5 and 56 degrees
+      // Toggle servo position between 0 and 40 degrees
       servoPosition = (servoPosition == 5) ? 56 : 5;
       servo.write(servoPosition); // Set servo to new position
       servoTriggered = true; // Set servo triggered flag
@@ -37,7 +37,7 @@ void loop() {
   // If servo motion is triggered
   if (servoTriggered) {
     // Do nothing until two more claps are detected
-    while (clapCount < clapCountThreshold + 2) {
+    while (clapCount < clapCountThreshold) {
       int micValue = digitalRead(micPin); // Read digital value from microphone module
       if (micValue == HIGH) { // If sound is detected (micValue is HIGH)
         Serial.println("Clap detected!"); // Print message to serial monitor
